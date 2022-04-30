@@ -42,7 +42,7 @@ const App = () => {
             item={item}
             likes={item.likes}
             index={index}
-            // onClick={handleChange}
+            onClick={handleChange}
           />
         )}
         keyExtractor={(item, index) => index.toString()}

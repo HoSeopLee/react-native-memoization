@@ -1,7 +1,7 @@
 import React, {memo, Profiler, useState, useMemo} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 function CommentItem({item, likes, onClick = () => {}}) {
-  // const [clickCount, setClickCount] = useState(0);
+  const [clickCount, setClickCount] = useState(0);
   const onRenderCallback = (
     id, // the "id" prop of the Profiler tree that has just committed
     phase, // either "mount" (if the tree just mounted) or "update" (if it re-rendered)
@@ -16,8 +16,8 @@ function CommentItem({item, likes, onClick = () => {}}) {
   };
   //프롭스가 아닐때 이벤트 확인
   const handleClick = () => {
-    // onClick();
-    // setClickCount(pre => pre + 1);
+    onClick();
+    setClickCount(pre => pre + 1);
     alert(`${item.title}눌림`);
   };
 
@@ -27,10 +27,11 @@ function CommentItem({item, likes, onClick = () => {}}) {
   //   return item.likes > 10 ? 'Good' : 'Bed';
   // };
 
-  // const rate = useMemo(() => {
-  //   console.log('rate check', item.title);
-  //   return likes > 10 ? 'Good' : 'Bed';
-  // }, [likes]);
+  const rate = useMemo(() => {
+    //rate check 로 시작하는 로그는 더이상 안뜨게됨 .
+    console.log('rate check', item.title);
+    return likes > 10 ? 'Good' : 'Bed';
+  }, [likes]);
 
   return (
     <Profiler id="CommentItem" onRender={onRenderCallback}>
@@ -47,8 +48,8 @@ function CommentItem({item, likes, onClick = () => {}}) {
         <Text>{item.content}</Text>
         <Text>{likes}</Text>
         {/* <Text>{rate()}</Text> */}
-        {/* <Text>{rate}</Text>
-        <Text>{clickCount}</Text> */}
+        <Text>{rate}</Text>
+        <Text>{clickCount}</Text>
       </TouchableOpacity>
     </Profiler>
   );
